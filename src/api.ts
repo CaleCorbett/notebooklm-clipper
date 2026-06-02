@@ -96,18 +96,15 @@ function isYouTubeUrl(url: string): boolean {
 }
 
 export async function addUrlSource(notebookId: string, url: string): Promise<void> {
-  const ytInner: Record<number, unknown> = { 7: [url], 10: 1 };
-  const regInner: Record<number, unknown> = { 2: [url] };
-
   const params = isYouTubeUrl(url)
     ? [
-        [ytInner],
+        [[null, null, null, null, null, null, null, [url], null, null, 1]],
         notebookId,
         [2],
         [1, null, null, null, null, null, null, null, null, null, [1]],
       ]
     : [
-        [regInner],
+        [[null, null, [url], null, null, null, null, null]],
         notebookId,
         [2],
         null,

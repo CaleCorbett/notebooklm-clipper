@@ -128,7 +128,7 @@ describe('YouTube URL detection (via param shape)', () => {
       const fReq = JSON.parse(new URLSearchParams(body).get('f.req')!);
       const params = JSON.parse(fReq[0][0][1]);
       expect(params[0][0][7]).toBeDefined();
-      expect(params[0][0][2]).toBeUndefined();
+      expect(params[0][0][2]).toBeNull();
     });
   }
 
