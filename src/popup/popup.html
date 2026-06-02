@@ -1,5 +1,89 @@
 <!DOCTYPE html>
 <html lang="en">
-<head><meta charset="UTF-8"><link rel="stylesheet" href="popup.css"></head>
-<body><script type="module" src="popup.js"></script></body>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="stylesheet" href="popup.css">
+  <title>NotebookLM Clipper</title>
+</head>
+<body>
+  <div class="popup">
+
+    <!-- Header -->
+    <header class="popup-header">
+      <img class="app-icon" src="../icons/icon48.png" alt="">
+      <span class="app-name">NotebookLM Clipper</span>
+      <div class="spacer"></div>
+    </header>
+
+    <!-- Not signed in state -->
+    <div id="state-auth" class="state hidden">
+      <div class="message-banner message-auth">
+        <span>Sign in to NotebookLM first</span>
+        <a href="https://notebooklm.google.com" target="_blank" class="link">Open ↗</a>
+      </div>
+    </div>
+
+    <!-- No notebooks state -->
+    <div id="state-empty" class="state hidden">
+      <div class="message-banner message-info">
+        <span>Create a notebook in NotebookLM first</span>
+        <a href="https://notebooklm.google.com" target="_blank" class="link">Open ↗</a>
+      </div>
+    </div>
+
+    <!-- Main state -->
+    <div id="state-main" class="state hidden">
+
+      <!-- Page preview -->
+      <div class="page-preview">
+        <img id="favicon" class="favicon" src="" alt="">
+        <div class="page-info">
+          <div id="page-title" class="page-title"></div>
+          <div id="page-url" class="page-url"></div>
+          <div id="yt-badge" class="yt-badge hidden">▶ YouTube</div>
+        </div>
+      </div>
+
+      <!-- Notebook picker -->
+      <div class="picker-section">
+        <div id="picker-label" class="picker-label">Save to</div>
+        <select id="notebook-select" class="notebook-select"></select>
+      </div>
+
+      <!-- Clip button -->
+      <div id="clip-section" class="clip-section">
+        <button id="clip-btn" class="clip-btn">
+          <span id="clip-icon">＋</span>
+          <span id="clip-text">Add to Notebook</span>
+        </button>
+      </div>
+
+      <!-- Success banner -->
+      <div id="success-banner" class="result-banner success-banner hidden">
+        <span class="banner-icon">✓</span>
+        <span id="success-text" class="banner-text"></span>
+      </div>
+
+      <!-- Error banner -->
+      <div id="error-banner" class="result-banner error-banner hidden">
+        <span class="banner-icon">✕</span>
+        <span id="error-text" class="banner-text"></span>
+        <button id="retry-btn" class="retry-btn">Retry</button>
+      </div>
+
+    </div>
+
+    <!-- Loading notebooks state -->
+    <div id="state-loading" class="state hidden">
+      <div class="loading-row">
+        <div class="spinner"></div>
+        <span>Loading notebooks…</span>
+      </div>
+    </div>
+
+  </div>
+
+  <script type="module" src="popup.js"></script>
+</body>
 </html>
