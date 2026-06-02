@@ -52,13 +52,7 @@ async function rpcCall(rpcId: string, params: unknown[]): Promise<unknown> {
   const at = await getAtToken();
   const paramsJson = JSON.stringify(params);
   const fReq = JSON.stringify([[[rpcId, paramsJson, null, 'generic']]]);
-  // Encode f.req but preserve characters that don't need escaping in form values
-  // so tests can assert on raw URLs contained in the body string.
-  const encodedFReq = encodeURIComponent(fReq)
-    .replace(/%3A/gi, ':')
-    .replace(/%2F/gi, '/')
-    .replace(/%40/gi, '@');
-  const body = `f.req=${encodedFReq}&at=${encodeURIComponent(at)}`;
+  const body = new URLSearchParams({ 'f.req': fReq, at });
 
   const resp = await fetch(
     `${BATCHEXECUTE_URL}?rpcids=${rpcId}&rt=c`,
@@ -86,7 +80,7 @@ export async function listNotebooks(): Promise<Notebook[]> {
   }));
 }
 
-function isYouTubeUrl(url: string): boolean {
+export function isYouTubeUrl(url: string): boolean {
   try {
     const hostname = new URL(url).hostname.replace(/^www\./, '');
     return hostname === 'youtube.com' || hostname === 'youtu.be' || hostname === 'm.youtube.com';

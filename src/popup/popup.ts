@@ -1,7 +1,9 @@
 import { setLastNotebookId, getLastNotebookId } from '../storage';
+import { isYouTubeUrl } from '../api';
 import type { Notebook } from '../api';
 import type {
   ClipRequest,
+  ListNotebooksRequest,
   ListNotebooksResult,
   ClipResult,
 } from '../background';
@@ -70,12 +72,7 @@ function hideError() {
 }
 
 // ── Helpers ─────────────────────────────────────────────────────────────────
-function isYouTubeUrl(url: string): boolean {
-  try {
-    const hostname = new URL(url).hostname.replace(/^www\./, '');
-    return hostname === 'youtube.com' || hostname === 'youtu.be' || hostname === 'm.youtube.com';
-  } catch { return false; }
-}
+// isYouTubeUrl imported from ../api
 
 function populateSelect(notebooks: Notebook[], lastId?: string) {
   select.innerHTML = '';

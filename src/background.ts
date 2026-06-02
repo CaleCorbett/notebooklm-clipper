@@ -3,6 +3,7 @@ import {
   addTextSource,
   listNotebooks,
   AuthError,
+  ApiError,
   RateLimitError,
   type Notebook,
 } from './api';
@@ -62,7 +63,11 @@ async function handleClip(req: ClipRequest): Promise<ClipResult> {
         return { ok: false, error: 'rateLimit', message: 'Rate limited — try again shortly' };
       }
     }
-    // URL clip failed (paywall/restricted) — fall back to text
+    // Only fall back to text for API errors (paywall/restricted content)
+    // Network failures and unknown errors are returned directly
+    if (!(err instanceof ApiError)) {
+      return { ok: false, error: 'unknown', message: 'Failed to add source' };
+    }
     try {
       await addTextSource(req.notebookId, req.title, req.bodyText);
       return { ok: true };

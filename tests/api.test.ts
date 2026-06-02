@@ -58,7 +58,7 @@ describe('addUrlSource', () => {
     );
     await api.addUrlSource('nb-1', 'https://example.com');
     const [, batchCall] = mockFetch.mock.calls;
-    const body = (batchCall[1] as RequestInit).body as string;
+    const body = decodeURIComponent((batchCall[1] as RequestInit).body as string);
     expect(body).toContain('izAoDd');
     expect(body).toContain('https://example.com');
   });
